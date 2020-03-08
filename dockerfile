@@ -1,19 +1,15 @@
-FROM ubuntu:latest
+FROM node:9-slim
 
 MAINTAINER lakshmi<m.lakshmikar23@gmail.com>
 
-WORKDIR /usr/apps/express-sample/
+WORKDIR /app
+
+COPY package.json ./app
 
 RUN apt-get  -y update
 
-RUN apt-get install -y nodejs
-
 RUN apt-get install -y npm
 
-RUN npm install -g http-server
+COPY ./app
 
-ADD ./usr/apps/express-sample/
-
-ADD app.js /usr/apps/express-sample/app.js
-
-CMD ["http-server","-s"]
+CMD["npm","start"]
