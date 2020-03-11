@@ -1,15 +1,19 @@
-FROM node:9-slim
+FROM alpine:latest
 
 MAINTAINER lakshmi<m.lakshmikar23@gmail.com>
 
-WORKDIR /app
-
-COPY package.json ./app
+WORKDIR /usr/apps/express-sample/
 
 RUN apt-get  -y update
 
+RUN apt-get install -y nodejs
+
 RUN apt-get install -y npm
 
-COPY ./app
+RUN npm install -g http-server
 
-CMD["npm","start"]
+ADD ./usr/apps/express-sample/
+
+ADD app.js /usr/apps/express-sample/app.js
+
+CMD ["http-server","-s"]
